@@ -1,0 +1,22 @@
+{
+  "name": "nestjs-mongoose-encryption-layer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && tsc",
+    "prepublish": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nestjs/common": "^10.3.3",
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "mongoose": "^8.2.0"
+  }
+}
