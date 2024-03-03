@@ -47,6 +47,8 @@ export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
             'createdAt',
             'updatedAt',
             'dueDate',
+            '$setOnInsert',
+            '$set'
         ]);
         // @ts-ignore
         this._update = cpy;
