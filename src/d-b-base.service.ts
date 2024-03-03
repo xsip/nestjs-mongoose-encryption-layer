@@ -31,7 +31,7 @@ export class DBBaseService<T> {
   findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>, options?: QueryOptions) {
     return this.model.findOneAndUpdate(
       CryptoService.inst.encryptObject(find, ['_id']),
-      toUpdate, options
+      toUpdate, {new: true, ...options}
     ).exec();
   }
 

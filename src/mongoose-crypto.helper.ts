@@ -54,6 +54,24 @@ export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
         this._update = cpy;
         next();
     });
+    Schema.post('findOneAndUpdate', function (next: any) {
+      if (next) {
+        // @ts-ignore
+        const cpy = CryptoService.inst.decryptObject(next._doc, [
+          '_id',
+          'id',
+          'createdAt',
+          'updatedAt',
+          'dueDate',
+          '__v',
+          '$__parent',
+          '$__',
+          '$__isNew',
+        ]);
+
+        next._doc = cpy;
+      }
+    });
 
     Schema.post('find', (next: any[]) => {
         // @ts-ignore

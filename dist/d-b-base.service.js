@@ -26,7 +26,7 @@ class DBBaseService {
         return this.model.find(query).exec();
     }
     findOneAndUpdate(find, toUpdate, options) {
-        return this.model.findOneAndUpdate(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id']), toUpdate, options).exec();
+        return this.model.findOneAndUpdate(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id']), toUpdate, Object.assign({ new: true }, options)).exec();
     }
     deleteOne(find) {
         return this.model.deleteOne(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id'])).exec();

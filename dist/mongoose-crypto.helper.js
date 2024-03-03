@@ -48,10 +48,29 @@ function applyEncryptionLayerToSchema(Schema, ignoreKey = [
             'createdAt',
             'updatedAt',
             'dueDate',
+            '$setOnInsert',
+            '$set'
         ]);
         // @ts-ignore
         this._update = cpy;
         next();
+    });
+    Schema.post('findOneAndUpdate', function (next) {
+        if (next) {
+            // @ts-ignore
+            const cpy = crypto_service_1.CryptoService.inst.decryptObject(next._doc, [
+                '_id',
+                'id',
+                'createdAt',
+                'updatedAt',
+                'dueDate',
+                '__v',
+                '$__parent',
+                '$__',
+                '$__isNew',
+            ]);
+            next._doc = cpy;
+        }
     });
     Schema.post('find', (next) => {
         // @ts-ignore
