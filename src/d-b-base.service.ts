@@ -1,4 +1,4 @@
-import {HydratedDocument, Model} from 'mongoose';
+import {HydratedDocument, Model, QueryOptions} from 'mongoose';
 import {CryptoService} from './crypto.service';
 
 export class DBBaseService<T> {
@@ -28,10 +28,10 @@ export class DBBaseService<T> {
     return this.model.find(query).exec();
   }
 
-  findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>) {
+  findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>, options?: QueryOptions) {
     return this.model.findOneAndUpdate(
       CryptoService.inst.encryptObject(find, ['_id']),
-      toUpdate
+      toUpdate, options
     ).exec();
   }
 

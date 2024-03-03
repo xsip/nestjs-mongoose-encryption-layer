@@ -22,7 +22,7 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { HydratedDocument, Model } from 'mongoose';
+import { HydratedDocument, Model, QueryOptions } from 'mongoose';
 export declare class DBBaseService<T> {
     private model;
     constructor(model: Model<T>);
@@ -35,7 +35,7 @@ export declare class DBBaseService<T> {
     findById(id: string): Promise<HydratedDocument<T>>;
     findOne(find: Partial<Record<keyof T, any>>): Promise<HydratedDocument<T>>;
     find(find: Partial<Record<keyof T, any>>): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>[]>;
-    findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>>;
+    findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>, options?: QueryOptions): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>>;
     deleteOne(find: Partial<Record<keyof T, any>>): Promise<import("mongodb").DeleteResult>;
 }
 //# sourceMappingURL=d-b-base.service.d.ts.map
