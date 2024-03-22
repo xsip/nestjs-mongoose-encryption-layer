@@ -33,9 +33,9 @@ export declare class DBBaseService<T> {
     })>;
     findAll(): Promise<HydratedDocument<T>[]>;
     findById(id: string): Promise<HydratedDocument<T>>;
-    findOne(find: Partial<Record<keyof T, any>>): Promise<HydratedDocument<T>>;
-    find(find: Partial<Record<keyof T, any>>): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>[]>;
-    findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>, options?: QueryOptions): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>>;
-    deleteOne(find: Partial<Record<keyof T, any>>): Promise<import("mongodb").DeleteResult>;
+    findOne(find: Partial<Record<keyof T, any>>, exclude?: (keyof T | string)[]): Promise<HydratedDocument<T>>;
+    find(find: Partial<Record<keyof T, any>>, exclude?: (keyof T | string)[]): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>[]>;
+    findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>, options?: QueryOptions, exclude?: (keyof T | string)[]): Promise<import("mongoose").IfAny<T, any, import("mongoose").Document<unknown, {}, T> & import("mongoose").Require_id<T>>>;
+    deleteOne(find: Partial<Record<keyof T, any>>, exclude?: (keyof T | string)[]): Promise<import("mongodb").DeleteResult>;
 }
 //# sourceMappingURL=d-b-base.service.d.ts.map

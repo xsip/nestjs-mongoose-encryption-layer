@@ -16,20 +16,20 @@ class DBBaseService {
     async findById(id) {
         return (await this.model.findById(id).exec());
     }
-    async findOne(find) {
+    async findOne(find, exclude = []) {
         // @ts-ignore
-        return this.model.findOne(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id'])).exec();
+        return this.model.findOne(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id', ...exclude])).exec();
     }
-    async find(find) {
-        const query = crypto_service_1.CryptoService.inst.encryptObject(find, ['_id']);
+    async find(find, exclude = []) {
+        const query = crypto_service_1.CryptoService.inst.encryptObject(find, ['_id', ...exclude]);
         // @ts-ignore
         return this.model.find(query).exec();
     }
-    findOneAndUpdate(find, toUpdate, options) {
-        return this.model.findOneAndUpdate(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id']), toUpdate, Object.assign({ new: true }, options)).exec();
+    findOneAndUpdate(find, toUpdate, options, exclude = []) {
+        return this.model.findOneAndUpdate(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id', ...exclude]), toUpdate, Object.assign({ new: true }, options)).exec();
     }
-    deleteOne(find) {
-        return this.model.deleteOne(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id'])).exec();
+    deleteOne(find, exclude = []) {
+        return this.model.deleteOne(crypto_service_1.CryptoService.inst.encryptObject(find, ['_id', ...exclude])).exec();
     }
 }
 exports.DBBaseService = DBBaseService;

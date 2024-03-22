@@ -15,29 +15,36 @@ export class DBBaseService<T> {
     return (await this.model.findById(id).exec()) as HydratedDocument<T>;
   }
   async findOne(
-    find: Partial<Record<keyof T, any>>
+    find: Partial<Record<keyof T, any>>,
+    exclude: (keyof T | string)[] = []
   ): Promise<HydratedDocument<T>> {
     // @ts-ignore
     return this.model.findOne(
-      CryptoService.inst.encryptObject(find, ['_id'])
+      CryptoService.inst.encryptObject(find, ['_id', ...exclude as string[]])
     ).exec();
   }
-  async find(find: Partial<Record<keyof T, any>>) {
-    const query = CryptoService.inst.encryptObject(find, ['_id']);
+  async find(find: Partial<Record<keyof T, any>>,
+             exclude: (keyof T | string)[] = []
+             ) {
+    const query = CryptoService.inst.encryptObject(find, ['_id',...exclude as string[]]);
     // @ts-ignore
     return this.model.find(query).exec();
   }
 
-  findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>, options?: QueryOptions) {
+  findOneAndUpdate(find: Partial<Record<keyof T, any>>, toUpdate: Partial<T>, options?: QueryOptions,
+                   exclude: (keyof T | string)[] = []
+                   ) {
     return this.model.findOneAndUpdate(
-      CryptoService.inst.encryptObject(find, ['_id']),
+      CryptoService.inst.encryptObject(find, ['_id', ...exclude as string[]]),
       toUpdate, {new: true, ...options}
     ).exec();
   }
 
-  deleteOne(find: Partial<Record<keyof T, any>>) {
+  deleteOne(find: Partial<Record<keyof T, any>>,
+            exclude: (keyof T | string)[] = []
+            ) {
     return this.model.deleteOne(
-      CryptoService.inst.encryptObject(find, ['_id'])
+      CryptoService.inst.encryptObject(find, ['_id', ...exclude as string[]])
     ).exec();
   }
 }
