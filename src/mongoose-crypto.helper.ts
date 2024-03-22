@@ -11,16 +11,7 @@ function fixValuesDeep(input: any, out: any) {
     return out;
 }
 
-export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
-    '_id',
-    'id',
-    'createdAt',
-    'updatedAt',
-    '__v',
-    '$__parent',
-    '$__',
-    '$__isNew',
-]) {
+export function applyEncryptionLayerToSchema(Schema: any, ignoreKey: string[] = []) {
     Schema.pre('save', function (next: any) {
         // @ts-ignore
         const model: any = this;
@@ -30,6 +21,7 @@ export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
             'createdAt',
             'updatedAt',
             'dueDate',
+            ...ignoreKey
         ]);
         for (const key in cpy) {
             (model as any)[key as any] = cpy[key] as any;
@@ -48,7 +40,8 @@ export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
             'updatedAt',
             'dueDate',
             '$setOnInsert',
-            '$set'
+            '$set',
+            ...ignoreKey
         ]);
         // @ts-ignore
         this._update = cpy;
@@ -67,6 +60,7 @@ export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
           '$__parent',
           '$__',
           '$__isNew',
+            ...ignoreKey
         ]);
 
         next._doc = cpy;
@@ -82,6 +76,7 @@ export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
                 'updatedAt',
                 'dueDate',
                 '__v',
+                ...ignoreKey
             ]);
             return entry;
         });
@@ -100,6 +95,7 @@ export function applyEncryptionLayerToSchema(Schema: any, ignoreKey = [
                 '$__parent',
                 '$__',
                 '$__isNew',
+                ...ignoreKey
             ]);
 
             next._doc = cpy;
