@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.applyEncryptionLayerToSchema = void 0;
+exports.applyEncryptionLayerToSchema = applyEncryptionLayerToSchema;
 const crypto_service_1 = require("./crypto.service");
 function fixValuesDeep(input, out) {
     for (const key in input) {
@@ -100,5 +100,4 @@ function applyEncryptionLayerToSchema(Schema, ignoreKey = []) {
         }
     });
 }
-exports.applyEncryptionLayerToSchema = applyEncryptionLayerToSchema;
 //# sourceMappingURL=mongoose-crypto.helper.js.map
